@@ -1,8 +1,9 @@
-import java.util.Scanner;
+import java.util.*;
 
 public class ConsoleMenu {
     private boolean running = true;
     private final Scanner scanner = new Scanner(System.in);
+    private final List<Student> students = new ArrayList<>();
 
     public void run() {
         while (running) {
@@ -34,7 +35,8 @@ public class ConsoleMenu {
     private void handleChoice(int choice) {
         switch (choice) {
             case 0:
-                // Выйти из программы
+                // Выход из программы
+                System.out.println("Программа завершена.");
                 running = false;
                 break;
 
@@ -69,22 +71,100 @@ public class ConsoleMenu {
     }
 
     private void createStudent() {
-        // Подключить создание студента
+        try {
+            System.out.print("Введите номер группы: ");
+            int groupNumber = scanner.nextInt();
+
+            System.out.print("Введите средний балл: ");
+            double averageScore = Double.parseDouble(
+                    scanner.next().replace(',', '.')
+            );
+
+            System.out.print("Введите номер зачетной книжки: ");
+            int idGradeBook = scanner.nextInt();
+
+            Student student = new Student.Builder()
+                    .groupNumber(groupNumber)
+                    .averageScore(averageScore)
+                    .idGradeBook(idGradeBook)
+                    .build();
+
+            students.add(student);
+            System.out.println("Студент создан:");
+            System.out.println(student);
+
+        } catch (InputMismatchException | IllegalArgumentException e) {
+            System.out.println("Ошибка: " + e.getMessage());
+            scanner.nextLine();
+        }
     }
 
     private void loadFromFile() {
         // Подключить загрузку данных из файла
+        scanner.nextLine();
+        System.out.print("Введите путь к файлу: ");
+        String filePath = scanner.nextLine();
+
+        //Подключение FileReader
+        //List<Student> students = FileReader.readStudentsFromFile(filePath);
     }
 
     private void fillRandom() {
         // Подключить заполнение массива случайными данными
+        Random random = new Random();
+
+        students.clear();
+
+        for (int i = 0; i < 10; i++) {
+            int groupNumber = random.nextInt(10) + 1;
+            double averageScore = 2.0 + random.nextDouble() * 3.0;
+            int idGradeBook = random.nextInt(1000) + 1;
+
+            Student student = new Student.Builder()
+                    .groupNumber(groupNumber)
+                    .averageScore(averageScore)
+                    .idGradeBook(idGradeBook)
+                    .build();
+
+            students.add(student);
+        }
+
+        System.out.println("Студенты заполнены случайными данными.");
     }
 
     private void sortStudents() {
         // Подключить сортировку студентов
+        System.out.println("1. По возрастанию");
+        System.out.println("2. По убыванию");
+        System.out.print("Выберите сортировку: ");
+
+        int choice = readChoice();
+
+        switch (choice) {
+            case 1:
+                // AllAscending sorter = new AllAscending();
+                // sorter.sort(students);
+                break;
+
+            case 2:
+                // AllDescending sorter = new AllDescending();
+                // sorter.sort(students);
+                break;
+
+            default:
+                System.out.println("Неверный выбор.");
+        }
     }
 
     private void showData() {
         // Показать данные
+        if (students.isEmpty()) {
+            System.out.println("Список студентов пуст.");
+            return;
+        }
+
+        for (Student student : students) {
+            System.out.println(student);
+        }
     }
 }
