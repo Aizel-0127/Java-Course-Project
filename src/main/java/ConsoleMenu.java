@@ -1,5 +1,4 @@
 import java.util.*;
-
 import collections.StudentCollection;
 import sort.*;
 import model.Student;
@@ -104,19 +103,18 @@ public class ConsoleMenu {
     }
 
     private void loadFromFile() {
-        // Подключить загрузку данных из файла
+
         scanner.nextLine();
         System.out.print("Введите путь к файлу: ");
         String filePath = scanner.nextLine();
 
-        //Подключение FileReader
         students.setStudents(FileReader.readStudentsFromFile(filePath));
     }
 
     private void fillRandom() {
         students.clear();
         
-        int count=0;
+        int count = 0;
         do {
             System.out.println("Введите количество студентов для заполнения: ");
             count = scanner.nextInt();
@@ -127,9 +125,12 @@ public class ConsoleMenu {
     }
 
     private void sortStudents() {
-        // Подключить сортировку студентов
+
         System.out.println("1. По возрастанию");
         System.out.println("2. По убыванию");
+        System.out.println("3. По чётному среднему баллу");
+        System.out.println("4. По чётному номеру группы");
+        System.out.println("5. По чётному номеру зачетной книжки");
         System.out.print("Выберите сортировку: ");
 
         int choice = readChoice();
@@ -147,6 +148,26 @@ public class ConsoleMenu {
                 sorter.sort(students);
                 break;
             }
+            case 3:
+            {
+                EvenAverageScore sorter = new EvenAverageScore();
+                sorter.sort(students);
+                break;
+            }
+
+            case 4:
+            {
+                EvenGroupNumber sorter = new EvenGroupNumber();
+                sorter.sort(students);
+                break;
+            }
+
+            case 5:
+            {
+                EvenRecordBookNumber sorter = new EvenRecordBookNumber();
+                sorter.sort(students);
+                break;
+            }
 
             default:
                 System.out.println("Неверный выбор.");
@@ -154,7 +175,7 @@ public class ConsoleMenu {
     }
 
     private void showData() {
-        // Показать данные
+
         if (students.isEmpty()) {
             System.out.println("Список студентов пуст.");
             return;
