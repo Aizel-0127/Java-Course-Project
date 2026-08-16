@@ -2,15 +2,18 @@ package sort;
 
 import model.Student;
 import java.util.List;
+import collections.StudentCollection;
 
-public class EvenAverageScore implements SortStrategy<model.Student> {
+public class EvenAverageScore implements SortStrategy {
     @Override
-    public void sort(List<Student> students) {
+    public void sort(StudentCollection studentsCollection) {
+        List<Student> students = studentsCollection.getStudents();
         SortHelper.sortOnlyMatchingValuesByInsertion(
                 students,
                 this::hasEvenAverageScore,
                 this::compareByAverageScore
         );
+        studentsCollection.setStudents(students);
     }
 
     private int compareByAverageScore(model.Student firstStudent, model.Student secondStudent) {
@@ -20,4 +23,5 @@ public class EvenAverageScore implements SortStrategy<model.Student> {
     private boolean hasEvenAverageScore(model.Student student) {
         return (int) Math.floor(student.getAverageScore()) % 2 == 0;
     }
+    
 }

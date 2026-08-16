@@ -1,7 +1,6 @@
 package sort;
+import collections.*;
 
-import java.util.List;
-
-public interface SortStrategy<T> {
-    void sort(List<T> elements);
+public interface SortStrategy {
+    void sort(StudentCollection collection);
 }

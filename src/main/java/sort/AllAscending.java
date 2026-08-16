@@ -1,11 +1,13 @@
 package sort;
-
 import model.Student;
 import java.util.List;
 
-public class AllAscending implements SortStrategy<Student> {
+import collections.StudentCollection;
+
+public class AllAscending implements SortStrategy {
     @Override
-    public void sort(List<Student> students) {
+    public void sort(StudentCollection studentsCollection) {
+        List<Student> students = studentsCollection.getStudents();
         for (int i = 1; i < students.size(); i++) {
             Student currentStudent = students.get(i);
             int previousIndex = i - 1;
@@ -18,5 +20,6 @@ public class AllAscending implements SortStrategy<Student> {
 
             students.set(previousIndex + 1, currentStudent);
         }
+        studentsCollection.setStudents(students);
     }
 }

@@ -1,3 +1,4 @@
+package model;
 public class Student {
     private int groupNumber; // номер группы
     private double averageScore; // средний балл

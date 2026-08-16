@@ -1,9 +1,13 @@
 import java.util.*;
 
+import collections.StudentCollection;
+import sort.*;
+import model.Student;
+
 public class ConsoleMenu {
     private boolean running = true;
     private final Scanner scanner = new Scanner(System.in);
-    private final List<Student> students = new ArrayList<>();
+    private final StudentCollection students = new StudentCollection();
 
     public void run() {
         while (running) {
@@ -106,28 +110,18 @@ public class ConsoleMenu {
         String filePath = scanner.nextLine();
 
         //Подключение FileReader
-        //List<Student> students = FileReader.readStudentsFromFile(filePath);
+        students.setStudents(FileReader.readStudentsFromFile(filePath));
     }
 
     private void fillRandom() {
-        // Подключить заполнение массива случайными данными
-        Random random = new Random();
-
         students.clear();
-
-        for (int i = 0; i < 10; i++) {
-            int groupNumber = random.nextInt(10) + 1;
-            double averageScore = 2.0 + random.nextDouble() * 3.0;
-            int idGradeBook = random.nextInt(1000) + 1;
-
-            Student student = new Student.Builder()
-                    .groupNumber(groupNumber)
-                    .averageScore(averageScore)
-                    .idGradeBook(idGradeBook)
-                    .build();
-
-            students.add(student);
-        }
+        
+        int count=0;
+        do {
+            System.out.println("Введите количество студентов для заполнения: ");
+            count = scanner.nextInt();
+        } while (count <= 0);
+        students.fillRandom(count);
 
         System.out.println("Студенты заполнены случайными данными.");
     }
@@ -142,14 +136,17 @@ public class ConsoleMenu {
 
         switch (choice) {
             case 1:
-                // AllAscending sorter = new AllAscending();
-                // sorter.sort(students);
+            {
+                AllAscending sorter = new AllAscending();
+                sorter.sort(students);
                 break;
-
+            }
             case 2:
-                // AllDescending sorter = new AllDescending();
-                // sorter.sort(students);
+            {
+                AllDescending sorter = new AllDescending();
+                sorter.sort(students);
                 break;
+            }
 
             default:
                 System.out.println("Неверный выбор.");
@@ -163,7 +160,7 @@ public class ConsoleMenu {
             return;
         }
 
-        for (Student student : students) {
+        for (Student student : students.getStudents()) {
             System.out.println(student);
         }
     }
