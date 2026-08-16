@@ -40,6 +40,19 @@ public class FileReader {
 
         return studentsList;
     }
-}
 
+    public static void writeStudentsToFile(String filePath, List<Student> students) {
+        try {
+            List<String> lines = new ArrayList<>();
+            for (Student s : students) {
+                String line = s.getGroupNumber() + "," + s.getAverageScore() + "," + s.getIdGradeBook();
+                lines.add(line);
+            }
+            Files.write(Paths.get(filePath), lines);
+            System.out.println("Файл сохранён: " + filePath);
+        } catch (IOException e) {
+            System.out.println("Ошибка при записи файла: " + e.getMessage());
+        }
+    }
+}
 
