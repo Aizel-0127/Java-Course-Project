@@ -1,6 +1,7 @@
 import java.io.IOException;
 import java.nio.file.Files;
 import java.nio.file.Paths;
+import java.nio.file.StandardOpenOption;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -40,6 +41,29 @@ public class FileReader {
 
         return studentsList;
     }
+
+    public static void writeStudentsToFile(String filePath, List<Student> students) {
+        try {
+            List<String> lines = new ArrayList<>();
+
+            for (Student s : students) {
+                String line = s.getGroupNumber() + "," +
+                            s.getAverageScore() + "," +
+                            s.getIdGradeBook();
+                lines.add(line);
+            }
+
+            Files.write(
+                    Paths.get(filePath),
+                    lines,
+                    StandardOpenOption.CREATE,
+                    StandardOpenOption.APPEND
+            );
+
+            System.out.println("Данные добавлены в файл: " + filePath);
+
+        } catch (IOException e) {
+            System.out.println("Ошибка при записи файла: " + e.getMessage());
+        }
+    }
 }
-
-

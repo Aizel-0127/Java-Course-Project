@@ -34,7 +34,7 @@ public class StudentCollection {
             double averageScore = 1.0 + rand.nextDouble() * 4.0; // от 1 до 5
             int idGradeBook = rand.nextInt(10000) + 1;
             return new Student.Builder()
-            .groupNumber(groupNumber)
+            .groupNumber(groupNumber)   
             .averageScore(averageScore)
             .idGradeBook(idGradeBook)
             .build();

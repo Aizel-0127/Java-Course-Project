@@ -21,7 +21,7 @@ public class AllDescending implements SortStrategy {
             }
 
             if (!hasSwap) {
-                return;
+                break;
             }
         }
         studentsCollection.setStudents(students);
