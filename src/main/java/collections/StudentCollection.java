@@ -26,7 +26,7 @@ public class StudentCollection {
         this.students = new ArrayList<>(students);
     }
 
-    // 2. Случайное заполнение заданной длины (используем стримы)
+    // 2. Случайное заполнение заданной длины
     public void fillRandom(int count) {
         Random rand = new Random();
         this.students = Stream.generate(() -> {
@@ -41,7 +41,6 @@ public class StudentCollection {
         }).limit(count).collect(Collectors.toList());
     }
 
-    // ----- Доступ к данным -----
     public List<Student> getStudents() {
         return new ArrayList<>(students);
     }
@@ -54,7 +53,6 @@ public class StudentCollection {
     {
         return students.isEmpty();
     }
-    // Можно добавить метод для замены всей коллекции (используется сортировщиком)
     public void setStudents(List<Student> newList) {
         this.students = new ArrayList<>(newList);
     }

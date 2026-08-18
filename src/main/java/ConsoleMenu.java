@@ -12,6 +12,7 @@ public class ConsoleMenu {
 
     public void run() {
         while (running) {
+            
             showMenu();
             int choice = readChoice();
             handleChoice(choice);
@@ -19,6 +20,7 @@ public class ConsoleMenu {
     }
 
     private void showMenu() {
+        System.out.println();
         System.out.println("1. Создать Student");
         System.out.println("2. Загрузить данные из файла");
         System.out.println("3. Заполнить случайно");
